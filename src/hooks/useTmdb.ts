@@ -1,4 +1,4 @@
-import { useQuery, type UseQueryResult } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery, type UseQueryResult, type UseInfiniteQueryResult, type InfiniteData } from '@tanstack/react-query';
 import { type Movie, type PaginatedResponse } from '@/types/Movie';
 import { getPopularMovies } from '@/api/tmdb';
 
@@ -27,4 +27,30 @@ export const usePopularMovies = (page: number): UseQueryResult<PaginatedResponse
   });
 };
 
-// ... Criar useMovieDetails e useSearchMovies de forma similar
+// Chave única para o cache do React Query
+const MOVIE_KEYS_2 = {
+  popular: ['movies', 'popular'], // A chave agora é fixa, as páginas são internas
+};
+
+/**
+ * Hook customizado para buscar filmes populares com Infinite Scroll.
+ */
+export const usePopularMoviesInfinite = (): UseInfiniteQueryResult<InfiniteData<PaginatedResponse<Movie>>, Error> => {
+  return useInfiniteQuery({
+    queryKey: MOVIE_KEYS_2.popular,
+    queryFn: ({ pageParam = 1 }) => getPopularMovies(pageParam as number),
+    initialPageParam: 1,
+    // 1. Lógica do Infinite Scroll (getNextPageParam)
+    getNextPageParam: (lastPage) => {
+      // Se a última página não for a última total, retorna a próxima página.
+      if (lastPage.page < lastPage.total_pages) {
+        return lastPage.page + 1;
+      }
+      return undefined; // Não há mais páginas
+    },
+
+    // 2. Opções de Caching
+    staleTime: 1000 * 60 * 5, // 5 minutos para evitar requisições repetidas
+  });
+};
+
