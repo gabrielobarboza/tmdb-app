@@ -46,7 +46,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, showRemoveButton = false }
   const formattedVote = movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A';
   
   return (
-    <div className="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-[1.03] transition-transform duration-300">
+    <div className="relative bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-[1.03] transition-transform duration-300">
       
       {/* Link para a página de Detalhes */}
       <NavLink to={`/movie/${movie.id}`} title={movie.title} className="block relative">

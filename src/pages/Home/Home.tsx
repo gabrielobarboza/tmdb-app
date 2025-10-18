@@ -32,15 +32,17 @@ export const Home: React.FC = () => {
       rootMargin: '100px', // Aciona um pouco antes de chegar ao fim
     });
 
-    if (loadMoreRef.current) {
-      observer.observe(loadMoreRef.current);
+    const loadMoreElement = loadMoreRef.current;
+    if (loadMoreElement) {
+      observer.observe(loadMoreElement);
     }
 
     // Limpeza: Desconecta o observer quando o componente desmonta
     return () => {
-      if (loadMoreRef.current) {
-        observer.unobserve(loadMoreRef.current);
+      if (loadMoreElement) {
+        observer.unobserve(loadMoreElement);
       }
+      observer.disconnect();
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
