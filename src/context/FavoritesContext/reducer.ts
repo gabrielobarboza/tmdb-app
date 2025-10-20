@@ -28,6 +28,6 @@ export const favoritesReducer = (
       return state.filter(movie => movie.id !== action.payload);
 
     default:
-      return state;
+      return state || [];
   }
 };

@@ -61,6 +61,22 @@ export const Search: React.FC = () => {
     return <div className="text-center text-red-500 py-10">Erro ao realizar a busca: {error.message}</div>;
   }
 
+  const emptyState = (
+    !trimmedQuery ? (
+      <EmptyState 
+        title="O que você está procurando?" 
+        message="Use a barra de busca no topo para encontrar filmes." 
+      />
+    ) : (isFetched ? (
+      <EmptyState 
+        title={`Nenhum resultado encontrado para "${trimmedQuery}"`} 
+        message="Tente refinar sua busca com palavras-chave diferentes."
+        ctaText="Voltar para Filmes Populares"
+        ctaLink="/"
+      />
+    ) : null)
+  );
+  
   return (
     <ListLayout
       title={(
@@ -70,21 +86,7 @@ export const Search: React.FC = () => {
       )}
       movieList={allMovies}
       highlight={trimmedQuery}
-      emptyState={(
-        !trimmedQuery ? (
-          <EmptyState 
-            title="O que você está procurando?" 
-            message="Use a barra de busca no topo para encontrar filmes." 
-          />
-        ) : (isFetched ? (
-          <EmptyState 
-            title={`Nenhum resultado encontrado para "${trimmedQuery}"`} 
-            message="Tente refinar sua busca com palavras-chave diferentes."
-            ctaText="Voltar para Filmes Populares"
-            ctaLink="/"
-          />
-        ) : null)
-      )}
+      emptyState={emptyState}
     >
        <div ref={loadMoreRef} className="py-8">
         {isFetchingNextPage && <div className="flex justify-center"><Loader size="sm" /></div>}
