@@ -6,7 +6,7 @@ interface LoaderProps {
   color?: string; // Ex: 'text-white', 'text-blue-500'
 }
 
-const Loader: React.FC<LoaderProps> = ({ size = 'md', color = 'text-blue-500' }) => {
+export const Loader: React.FC<LoaderProps> = ({ size = 'md', color = 'text-blue-500' }) => {
   // 1. Definição do Tamanho com base na prop 'size'
   const sizeClasses = {
     sm: 'w-6 h-6 border-2', // Usado no Infinite Scroll
@@ -17,7 +17,7 @@ const Loader: React.FC<LoaderProps> = ({ size = 'md', color = 'text-blue-500' })
   // 2. Classes base para o estilo de 'spinner'
   // 'animate-spin' é uma utilidade nativa do Tailwind.
   // 'border-t-transparent' remove a borda superior para criar o efeito de giro.
-  const baseClasses = `rounded-full border-solid ${sizeClasses[size]} ${color} border-t-transparent`;
+  const baseClasses = `animate-spin rounded-full border-solid ${sizeClasses[size]} ${color} border-t-transparent`;
 
   return (
     // Usa um wrapper simples para centralização se necessário

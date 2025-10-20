@@ -26,11 +26,14 @@ export const getPopularMovies = async (page: number): Promise<PaginatedResponse<
 };
 
 /**
- * Função pura para buscar detalhes de um filme
+ * Função pura para buscar os detalhes de um filme específico pelo ID.
+ * @param id O ID do filme (path: /movie/{movie_id}).
+ * @returns Um objeto Movie com todos os detalhes.
  */
 export const getMovieDetails = async (id: number): Promise<Movie> => {
+  // O Axios fará a requisição para BASE_URL/movie/{id}
   const response = await tmdbClient.get<Movie>(`/movie/${id}`);
+  
+  // Retorna o objeto de dados (Movie)
   return response.data;
 };
-
-// ... Adicionar outras funções como searchMovies(query, page) aqui

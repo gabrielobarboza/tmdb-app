@@ -1,11 +1,12 @@
 import { useQuery, useInfiniteQuery, type UseQueryResult, type UseInfiniteQueryResult, type InfiniteData } from '@tanstack/react-query';
 import { type Movie, type PaginatedResponse } from '@/types/Movie';
-import { getPopularMovies } from '@/api/tmdb';
+import { getPopularMovies, getMovieDetails } from '@/api/tmdb';
 
 // Chave única para o cache do React Query
 const MOVIE_KEYS = {
   popular: (page: number) => ['movies', 'popular', page],
-  // ... adicionar chaves para 'details' ou 'search'
+  popular_infinite: ['movies', 'popular'], // A chave agora é fixa, as páginas são internas
+  details: (id: number) => ['movie', id], // Chave dinâmica para cada ID// ... adicionar chaves para 'details' ou 'search'
 };
 
 /**
@@ -27,17 +28,12 @@ export const usePopularMovies = (page: number): UseQueryResult<PaginatedResponse
   });
 };
 
-// Chave única para o cache do React Query
-const MOVIE_KEYS_2 = {
-  popular: ['movies', 'popular'], // A chave agora é fixa, as páginas são internas
-};
-
 /**
  * Hook customizado para buscar filmes populares com Infinite Scroll.
  */
 export const usePopularMoviesInfinite = (): UseInfiniteQueryResult<InfiniteData<PaginatedResponse<Movie>>, Error> => {
   return useInfiniteQuery({
-    queryKey: MOVIE_KEYS_2.popular,
+    queryKey: MOVIE_KEYS.popular_infinite,
     queryFn: ({ pageParam = 1 }) => getPopularMovies(pageParam as number),
     initialPageParam: 1,
     // 1. Lógica do Infinite Scroll (getNextPageParam)
@@ -54,3 +50,15 @@ export const usePopularMoviesInfinite = (): UseInfiniteQueryResult<InfiniteData<
   });
 };
 
+/**
+ * Hook customizado para buscar os detalhes de um filme específico.
+ * @param id O ID do filme a ser buscado.
+ */
+export const useMovieDetails = (id: number): UseQueryResult<Movie, Error> => {
+  return useQuery({
+    queryKey: MOVIE_KEYS.details(id),
+    queryFn: () => getMovieDetails(id),
+    enabled: !!id, // Só executa a busca se o ID for válido
+    staleTime: 1000 * 60 * 60, // Detalhes do filme podem ficar em cache por 1 hora
+  });
+};

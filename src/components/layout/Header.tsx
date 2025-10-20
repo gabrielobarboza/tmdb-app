@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   // Hook para navegação programática
   const navigate = useNavigate();
   

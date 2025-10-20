@@ -6,7 +6,7 @@ import { FaHeart, FaRegHeart, FaStar, FaTrash } from 'react-icons/fa'; // Ícone
 
 // Constante para a URL base da imagem do TMDB (tamanho w300)
 // Requisito da Home: Poster -> https://image.tmdb.org/t/p/w300/{poster_path}
-const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w300';
+const IMAGE_BASE_URL = import.meta.env.VITE_TMDB_IMAGE_URL;
 
 interface MovieCardProps {
   movie: Movie;
@@ -14,7 +14,7 @@ interface MovieCardProps {
   showRemoveButton?: boolean; 
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, showRemoveButton = false }) => {
+export const MovieCard: React.FC<MovieCardProps> = ({ movie, showRemoveButton = false }) => {
   const { addFavorite, removeFavorite, isFavorited } = useFavorites();
   
   // Verifica se o filme está nos favoritos
@@ -32,7 +32,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, showRemoveButton = false }
   // URL completa do poster
   const posterUrl = movie.poster_path 
     ? `${IMAGE_BASE_URL}${movie.poster_path}` 
-    : 'https://via.placeholder.com/300x450?text=Poster+Nao+Disponivel'; // Fallback sênior
+    : 'https://placehold.co/300x450?text=Poster+Nao+Disponivel'; // Fallback sênior
 
   // Determina o ícone a ser exibido: Lixeira (FavoritosPage) ou Coração (Home/Search)
   const ActionIcon = showRemoveButton 
@@ -51,7 +51,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, showRemoveButton = false }
       {/* Link para a página de Detalhes */}
       <NavLink to={`/movie/${movie.id}`} title={movie.title} className="block relative">
         <img 
-          src={posterUrl} 
+          src={posterUrl}
           alt={movie.title} 
           className="w-full h-auto object-cover"
         />

@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from 'react';
-import MovieCard from '@/components/movies/MovieCard';
+import React, { useRef, useEffect, useMemo } from 'react';
 import { usePopularMoviesInfinite } from '@/hooks/useTmdb';
 import { type Movie } from '@/types/Movie';
 import Loader from '@/components/common/Loader'; // Crie este componente Loader
+import { ListLayout } from '@/components/layout';
 
 export const Home: React.FC = () => {
   const { 
@@ -46,8 +46,13 @@ export const Home: React.FC = () => {
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
+  // Extrai, achata e remove duplicatas de todos os filmes de todas as páginas
+  const allMovies: Movie[] = useMemo(() => {
+    const movies = data?.pages.flatMap(page => page.results) || [];
+    // Usa um Map para garantir que cada filme seja único com base no seu ID
+    return Array.from(new Map(movies.map(movie => [movie.id, movie])).values());
+  }, [data]);
 
-  // 2. Tratamento de Estados (Requisito NTT DATA)
   if (isLoading) {
     // Exibe um loader no centro da tela
     return <div className="flex justify-center items-center h-full min-h-[50vh]"><Loader /></div>; 
@@ -57,22 +62,9 @@ export const Home: React.FC = () => {
     // Exibe a mensagem de erro da API
     return <div className="text-center text-red-500 py-10">Erro ao carregar filmes: {error.message}</div>; 
   }
-  
-  // Extrai e 'achata' todos os filmes de todas as páginas carregadas
-  const allMovies: Movie[] = data?.pages.flatMap(page => page.results) || [];
-
 
   return (
-    <div className="py-8">
-      <h1 className="text-3xl font-bold text-white mb-6">Filmes Populares</h1>
-
-      {/* 3. Grid Responsivo (Requisito da Home) */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-        {allMovies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
-      </div>
-
+    <ListLayout movieList={allMovies} title="Filmes Populares">
       {/* 4. Ponto de Observação e Status do Carregamento */}
       <div ref={loadMoreRef} className="py-8">
         {isFetchingNextPage && <div className="flex justify-center"><Loader size="sm" /></div>}
@@ -80,7 +72,7 @@ export const Home: React.FC = () => {
           <p className="text-center text-gray-400 mt-4">Fim do catálogo.</p>
         )}
       </div>
-    </div>
+    </ListLayout>
   );
 };
 
