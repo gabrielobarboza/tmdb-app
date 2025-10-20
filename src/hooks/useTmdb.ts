@@ -1,5 +1,5 @@
-import { useQuery, useInfiniteQuery, type UseQueryResult, type UseInfiniteQueryResult, type InfiniteData } from '@tanstack/react-query';
-import { type Movie, type PaginatedResponse } from '@/types/Movie';
+import { useQuery, useInfiniteQuery, UseQueryResult, UseInfiniteQueryResult, InfiniteData } from '@tanstack/react-query';
+import { Movie, PaginatedResponse } from '@/types/Movie';
 import { getPopularMovies, getMovieDetails, searchMovies } from '@/api/tmdb';
 
 // Chave única para o cache do React Query

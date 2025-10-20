@@ -1,6 +1,6 @@
-import React, { type ReactNode, type JSX } from 'react';
+import React, { ReactNode, JSX } from 'react';
 import MovieCard from '@/components/movies/MovieCard';
-import type { Movie } from '@/types';
+import { Movie } from '@/types';
 
 interface ListLayoutProps {
   children?: ReactNode; // Para o observador de scroll infinito

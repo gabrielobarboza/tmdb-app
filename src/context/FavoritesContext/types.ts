@@ -1,4 +1,4 @@
-import type { Movie } from '@/types/Movie';
+import { Movie } from '@/types/Movie';
 
 // O Estado Global (um array de filmes favoritos)
 export type FavoritesState = Movie[];

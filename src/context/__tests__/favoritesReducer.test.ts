@@ -1,8 +1,8 @@
 // src/context/__tests__/favoritesReducer.test.ts
 
-import { favoritesReducer } from './reducer';
-import { type FavoritesAction, type FavoritesState, ActionType } from './types';
-import type { Movie } from '@/types/Movie';
+import { favoritesReducer } from '../FavoritesContext/reducer';
+import { FavoritesAction, FavoritesState, ActionType } from '../FavoritesContext/types';
+import { Movie } from '@/types/Movie';
 
 // --- 1. Dados de Mock (Simulando a estrutura do Movie) ---
 const mockMovie1: Movie = {

@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
-import type { Movie } from '@/types';
-import { type SortType } from '@/config/sortOptions';
+import { Movie } from '@/types';
+import { SortType } from '@/config/sortOptions';
 
 export const useMovieSort = (movies: Movie[]) => {
   const [sortType, setSortType] = useState<SortType>('title_asc');

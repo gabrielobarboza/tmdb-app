@@ -4,10 +4,9 @@ import { useMovieDetails } from '@/hooks/useTmdb';
 import { useFavorites } from '@/hooks/useFavorites';
 import Loader from '@/components/common/Loader';
 import { FaHeart, FaRegHeart, FaStar, FaCalendarAlt } from 'react-icons/fa';
+import { getEnvVariable } from '@/utils/envVariable';
 
-// URL base para a imagem de backdrop (tamanho original)
-// Requisito: https://image.tmdb.org/t/p/original/{backdrop_path}
-const IMAGE_BASE_URL = import.meta.env.VITE_TMDB_IMAGE_URL_BANNER;
+const IMAGE_BANNER_URL = getEnvVariable('IMAGE_BANNER_URL');
 
 export const Details: React.FC = () => {
   // Pega o ID da URL e converte para número
@@ -48,7 +47,7 @@ export const Details: React.FC = () => {
 
   // URL completa do backdrop, com fallback
   const backdropUrl = movie.backdrop_path 
-    ? `${IMAGE_BASE_URL}${movie.backdrop_path}` 
+    ? `${IMAGE_BANNER_URL}${movie.backdrop_path}` 
     : 'https://placehold.co/1280x720?text=Imagem+Nao+Disponivel';
 
   // Formatação de data

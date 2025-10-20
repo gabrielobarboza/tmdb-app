@@ -1,13 +1,11 @@
 import React, { useMemo } from 'react';
-import { type Movie } from '@/types/Movie';
+import { Movie } from '@/types/Movie';
 import { useFavorites } from '@/hooks/useFavorites'; // Hook de Favoritos
 import { NavLink } from 'react-router-dom';
 import { FaHeart, FaRegHeart, FaStar, FaTrash } from 'react-icons/fa'; // Ícones simples (Instale: npm install react-icons)
+import { getEnvVariable } from '@/utils/envVariable';
 
-// Constante para a URL base da imagem do TMDB (tamanho w300)
-// Requisito da Home: Poster -> https://image.tmdb.org/t/p/w300/{poster_path}
-const IMAGE_BASE_URL = import.meta.env.VITE_TMDB_IMAGE_URL;
-
+const IMAGE_BASE_URL = getEnvVariable('IMAGE_BASE_URL');
 interface MovieCardProps {
   movie: Movie;
   showRemoveButton?: boolean;

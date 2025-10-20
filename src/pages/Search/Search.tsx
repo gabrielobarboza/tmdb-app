@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import Loader from '@/components/common/Loader';
 import EmptyState from '@/components/common/EmptyState';
 import { useSearchMoviesInfinite } from '@/hooks/useTmdb';
-import { type Movie } from '@/types/Movie';
+import { Movie } from '@/types/Movie';
 import { ListLayout } from '@/components/layout';
 
 export const Search: React.FC = () => {

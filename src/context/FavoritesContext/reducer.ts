@@ -1,8 +1,8 @@
-import type { Movie } from '@/types';
+import { Movie } from '@/types';
 import {
     ActionType,
-    type FavoritesState,
-    type FavoritesAction
+    FavoritesState,
+    FavoritesAction
 } from './types';
 
 // A função Reducer que manipula o estado imutavelmente

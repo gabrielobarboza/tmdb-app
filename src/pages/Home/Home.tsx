@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useMemo } from 'react';
 import { usePopularMoviesInfinite } from '@/hooks/useTmdb';
-import { type Movie } from '@/types/Movie';
+import { Movie } from '@/types/Movie';
 import Loader from '@/components/common/Loader'; // Crie este componente Loader
 import { ListLayout } from '@/components/layout';
 

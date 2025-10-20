@@ -5,16 +5,16 @@ import React, {
   useEffect,
   useMemo,
   useReducer,
-  type ReactNode
+  ReactNode
 } from 'react';
-import { type Movie } from '@/types/Movie';
+import { Movie } from '@/types/Movie';
 import { FAVORITES_STORAGE_KEY } from '@/utils/storage';
 import useLocalStorage from '@/hooks/useLocalStorage'; // Hook customizado!
 
 import { favoritesReducer } from './reducer';
 import {
-  type FavoritesState,
-  type FavoritesContextProps
+  FavoritesState,
+  FavoritesContextProps
 } from './types';
 
 
