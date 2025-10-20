@@ -1,14 +1,15 @@
-import React, { useState, useMemo, type ReactNode } from 'react';
+import React, { useState, useMemo, type ReactNode, type JSX } from 'react';
 import MovieCard from '@/components/movies/MovieCard';
 import type { Movie } from '@/types';
 
 interface ListLayoutProps {
   children?: ReactNode;
   emptyState?: ReactNode;
+  highlight?: string;
+  movieList: Movie[]
   showRemoveButton?: boolean;
   sortable?: boolean;
-  movieList: Movie[]
-  title: string;
+  title: string | JSX.Element;
 }
 
 type SortType = 'title_asc' | 'title_desc' | 'rating_desc' | 'rating_asc';
@@ -23,6 +24,7 @@ const sortOptions = [
 export const ListLayout: React.FC<ListLayoutProps> = ({
     children = <></>,
     emptyState = <></>,
+    highlight = '',
     movieList,
     showRemoveButton,
     sortable,
@@ -85,7 +87,7 @@ export const ListLayout: React.FC<ListLayoutProps> = ({
       {/* 5. Grid de Filmes (Reutilização do Card) */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
         {sortedList.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} showRemoveButton={showRemoveButton} /> 
+          <MovieCard key={movie.id} movie={movie} showRemoveButton={showRemoveButton} highlight={highlight} /> 
         ))}
       </div>
 

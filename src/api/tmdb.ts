@@ -37,3 +37,20 @@ export const getMovieDetails = async (id: number): Promise<Movie> => {
   // Retorna o objeto de dados (Movie)
   return response.data;
 };
+
+/**
+ * Função pura para buscar filmes com base em um termo de busca.
+ * @param query O termo de busca.
+ * @param page A página de resultados.
+ * @returns Resposta paginada de filmes.
+ */
+export const searchMovies = async (query: string, page: number): Promise<PaginatedResponse<Movie>> => {
+  // O Axios fará a requisição para BASE_URL/search/movie
+  const response = await tmdbClient.get<PaginatedResponse<Movie>>(`/search/movie`, {
+    params: { 
+      query: query, // Passa o termo de busca
+      page: page,
+    },
+  });
+  return response.data;
+};

@@ -1,12 +1,13 @@
 import { useQuery, useInfiniteQuery, type UseQueryResult, type UseInfiniteQueryResult, type InfiniteData } from '@tanstack/react-query';
 import { type Movie, type PaginatedResponse } from '@/types/Movie';
-import { getPopularMovies, getMovieDetails } from '@/api/tmdb';
+import { getPopularMovies, getMovieDetails, searchMovies } from '@/api/tmdb';
 
 // Chave única para o cache do React Query
 const MOVIE_KEYS = {
   popular: (page: number) => ['movies', 'popular', page],
   popular_infinite: ['movies', 'popular'], // A chave agora é fixa, as páginas são internas
-  details: (id: number) => ['movie', id], // Chave dinâmica para cada ID// ... adicionar chaves para 'details' ou 'search'
+  details: (id: number) => ['movie', id], // Chave dinâmica para cada ID
+  search: (query: string) => ['movies', 'search', query], // Chave dinâmica para o cache
 };
 
 /**
@@ -60,5 +61,28 @@ export const useMovieDetails = (id: number): UseQueryResult<Movie, Error> => {
     queryFn: () => getMovieDetails(id),
     enabled: !!id, // Só executa a busca se o ID for válido
     staleTime: 1000 * 60 * 60, // Detalhes do filme podem ficar em cache por 1 hora
+  });
+};
+
+/**
+ * Hook customizado para buscar filmes com base em uma query e Infinite Scroll.
+ * @param query O termo de busca.
+ */
+export const useSearchMoviesInfinite = (query: string): UseInfiniteQueryResult<InfiniteData<PaginatedResponse<Movie>>, Error> => {
+  return useInfiniteQuery({
+    queryKey: MOVIE_KEYS.search(query),
+    queryFn: ({ pageParam = 1 }) => searchMovies(query, pageParam as number),
+    initialPageParam: 1,
+    // Só executa a busca se a query for válida (enabled: Sênior)
+    enabled: !!query.trim(), 
+
+    getNextPageParam: (lastPage) => {
+      // Mesma lógica: retorna a próxima página se houver mais
+      if (lastPage.page < lastPage.total_pages) {
+        return lastPage.page + 1;
+      }
+      return undefined;
+    },
+    staleTime: 1000 * 60 * 5, // 5 minutos de cache
   });
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { type Movie } from '@/types/Movie';
 import { useFavorites } from '@/hooks/useFavorites'; // Hook de Favoritos
 import { NavLink } from 'react-router-dom';
@@ -10,11 +10,11 @@ const IMAGE_BASE_URL = import.meta.env.VITE_TMDB_IMAGE_URL;
 
 interface MovieCardProps {
   movie: Movie;
-  // Opcional: Flag para mudar o ícone para lixeira na página de Favoritos
-  showRemoveButton?: boolean; 
+  showRemoveButton?: boolean;
+  highlight?: string;
 }
 
-export const MovieCard: React.FC<MovieCardProps> = ({ movie, showRemoveButton = false }) => {
+export const MovieCard: React.FC<MovieCardProps> = ({ movie, showRemoveButton = false, highlight = '' }) => {
   const { addFavorite, removeFavorite, isFavorited } = useFavorites();
   
   // Verifica se o filme está nos favoritos
@@ -44,6 +44,26 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, showRemoveButton = 
 
   // Formata a nota para uma casa decimal
   const formattedVote = movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A';
+
+  const titleContent = useMemo(() => {
+    if (!highlight.trim()) {
+      return movie.title;
+    }
+    const parts = movie.title.split(new RegExp(`(${highlight})`, 'gi'));
+    return (
+      <>
+        {parts.map((part, index) =>
+          part.toLowerCase() === highlight.toLowerCase() ? (
+            <span key={index} className="bg-yellow-500 text-gray-900 font-bold px-1 rounded-sm">
+              {part}
+            </span>
+          ) : (
+            part
+          ),
+        )}
+      </>
+    );
+  }, [movie.title, highlight]);
   
   return (
     <div className="relative bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-[1.03] transition-transform duration-300">
@@ -76,7 +96,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, showRemoveButton = 
       <div className="p-3">
         <h3 className="text-white text-lg font-semibold truncate">
           <NavLink to={`/movie/${movie.id}`} className="hover:text-blue-400 transition-colors">
-            {movie.title}
+            {titleContent}
           </NavLink>
         </h3>
       </div>
