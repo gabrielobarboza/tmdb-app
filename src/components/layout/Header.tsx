@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa'; // Ícones para o menu hambúrguer
 import { ThemeSwitcher } from '../common/ThemeSwitcher';
+import LOGO_SRC from '@/assets/images/logo_moviedb.png';
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -24,8 +25,6 @@ export const Header: React.FC = () => {
     const inactiveClasses = 'hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-yellow-500';
     return `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`;
   };
-  
-  const LOGO_SRC = "/src/assets/images/logo_moviedb.png";
 
   return (
     <header className="fixed top-0 left-0 w-full z-20 bg-gray-100 dark:bg-gray-800 shadow-md">
