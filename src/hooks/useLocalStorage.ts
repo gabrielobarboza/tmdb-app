@@ -7,7 +7,7 @@ import { getStorageItem, setStorageItem } from '@/utils/storage'; // Usando Alia
  * @param initialValue O valor inicial se nada for encontrado no Local Storage.
  * @returns [storedValue, setValue] - O valor e a função de atualização de estado.
  */
-function useLocalStorage<T>(key: string, initialValue: T) {
+export function useLocalStorage<T>(key: string, initialValue: T) {
   
   // 1. Inicializa o estado lendo do Local Storage na montagem inicial
   const [storedValue, setStoredValue] = useState<T>(() => {
