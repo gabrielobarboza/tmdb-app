@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "esModuleInterop": true // Adiciona compatibilidade entre módulos
+  },
+  "include": ["src", "setupTests.ts"] // Inclui os arquivos da aplicação e o setup de testes
+}
