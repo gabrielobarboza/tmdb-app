@@ -1,6 +1,6 @@
 import { useQuery, useInfiniteQuery, UseQueryResult, UseInfiniteQueryResult, InfiniteData } from '@tanstack/react-query';
 import { Movie, PaginatedResponse } from '@/types/Movie';
-import { getPopularMovies, getMovieDetails, searchMovies } from '@/api/tmdb';
+import tmdbClient from '@/api/tmdb';
 
 // Chave única para o cache do React Query
 const MOVIE_KEYS = {
@@ -22,7 +22,7 @@ export const usePopularMovies = (page: number): UseQueryResult<PaginatedResponse
     queryKey: MOVIE_KEYS.popular(page), 
     
     // 2. Function: A função que chama a API
-    queryFn: () => getPopularMovies(page), 
+    queryFn: () => tmdbClient.getPopularMovies(page), 
 
     // 3. Opções: Mantém os dados por 5 minutos (evita requisições repetidas)
     staleTime: 1000 * 60 * 5, 
@@ -35,7 +35,7 @@ export const usePopularMovies = (page: number): UseQueryResult<PaginatedResponse
 export const usePopularMoviesInfinite = (): UseInfiniteQueryResult<InfiniteData<PaginatedResponse<Movie>>, Error> => {
   return useInfiniteQuery({
     queryKey: MOVIE_KEYS.popular_infinite,
-    queryFn: ({ pageParam = 1 }) => getPopularMovies(pageParam as number),
+    queryFn: ({ pageParam = 1 }) => tmdbClient.getPopularMovies(pageParam as number),
     initialPageParam: 1,
     // 1. Lógica do Infinite Scroll (getNextPageParam)
     getNextPageParam: (lastPage) => {
@@ -58,7 +58,7 @@ export const usePopularMoviesInfinite = (): UseInfiniteQueryResult<InfiniteData<
 export const useMovieDetails = (id: number): UseQueryResult<Movie, Error> => {
   return useQuery({
     queryKey: MOVIE_KEYS.details(id),
-    queryFn: () => getMovieDetails(id),
+    queryFn: () => tmdbClient.getMovieDetails(id),
     enabled: !!id, // Só executa a busca se o ID for válido
     staleTime: 1000 * 60 * 60, // Detalhes do filme podem ficar em cache por 1 hora
   });
@@ -71,7 +71,7 @@ export const useMovieDetails = (id: number): UseQueryResult<Movie, Error> => {
 export const useSearchMoviesInfinite = (query: string): UseInfiniteQueryResult<InfiniteData<PaginatedResponse<Movie>>, Error> => {
   return useInfiniteQuery({
     queryKey: MOVIE_KEYS.search(query),
-    queryFn: ({ pageParam = 1 }) => searchMovies(query, pageParam as number),
+    queryFn: ({ pageParam = 1 }) => tmdbClient.searchMovies(query, pageParam as number),
     initialPageParam: 1,
     // Só executa a busca se a query for válida (enabled: Sênior)
     enabled: !!query.trim(), 
