@@ -47,6 +47,8 @@ Aplicação React para explorar filmes usando a API do TMDB. Busque filmes, veja
 #### Requisitos
 - Node.js >= 18.x
 
+---
+
 ## Quick Start
 
 ```bash
