@@ -1,7 +1,8 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
-    "esModuleInterop": true // Adiciona compatibilidade entre módulos
+    "jsx": "react-jsx",
+    "esModuleInterop": true
   },
-  "include": ["src", "setupTests.ts"] // Inclui os arquivos da aplicação e o setup de testes
+  "include": ["src/**/*.test.ts", "src/**/*.test.tsx", "setupTests.ts"]
 }
