@@ -60,7 +60,7 @@ export const Home: React.FC = () => {
 
   if (isError) {
     // Exibe a mensagem de erro da API
-    return <div className="text-center text-red-500 py-10">Erro ao carregar filmes: {error.message}</div>; 
+    return <div className="text-center text-red-500 dark:text-red-400 py-10">Erro ao carregar filmes: {error.message}</div>; 
   }
 
   return (
@@ -76,4 +76,4 @@ export const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Home;;

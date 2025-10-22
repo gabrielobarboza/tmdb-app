@@ -7,7 +7,7 @@ interface AppLayoutProps {
 
 export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   return (
-    <div className="flex flex-col min-h-screen min-w-full">
+    <div className="flex flex-col min-h-screen min-w-full bg-primary text-secondary">
       {/* O Header Fixo com a Barra de Busca Global (Requisito 1) */}
       <Header /> 
       

@@ -61,8 +61,8 @@ export const Details: React.FC = () => {
   const ButtonIcon = isCurrentlyFavorited ? FaHeart : FaRegHeart;
 
   return (
-    <div className="py-8 text-white">
-      <div className="bg-gray-800 rounded-xl shadow-2xl overflow-hidden p-6 md:p-8">
+    <div className="py-8 text-gray-800 dark:text-gray-200">
+      <div className="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-2xl overflow-hidden p-6 md:p-8">
         
         {/* Layout Grid/Flex para o bloco principal */}
         <div className="md:flex md:space-x-8">
@@ -98,12 +98,12 @@ export const Details: React.FC = () => {
             </div>
 
             {/* Data e Nota */}
-            <p className="text-gray-400 text-sm mb-2 flex items-center space-x-2">
+            <p className="text-gray-600 dark:text-gray-400 text-sm mb-2 flex items-center space-x-2">
               <FaCalendarAlt className="w-4 h-4" />
               <span>Data de lançamento:</span>
               <span className="font-semibold">{releaseDate}</span>
             </p>
-            <p className="text-gray-400 text-sm mb-6 flex items-center space-x-2">
+            <p className="text-gray-600 dark:text-gray-400 text-sm mb-6 flex items-center space-x-2">
               <span>Nota TMDB:</span>
               <span className="bg-yellow-500 text-gray-900 font-bold px-2 py-0.5 rounded-md text-sm flex items-center space-x-1">
                 <FaStar className="w-3 h-3" />
@@ -113,14 +113,14 @@ export const Details: React.FC = () => {
 
             {/* Sinopse */}
             <h2 className="text-2xl font-bold mb-3">Sinopse</h2>
-            <p className="text-gray-300 leading-relaxed mb-8">
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-8">
               {movie.overview || "Sinopse não disponível."}
             </p>
 
             {/* Botão de Favoritar */}
             <button
               onClick={handleFavoriteToggle}
-              className={`flex items-center space-x-2 px-6 py-3 font-bold rounded-lg transition-all shadow-lg ${buttonClass}`}
+              className={`cursor-pointer flex items-center space-x-2 px-6 py-3 font-bold rounded-lg transition-all shadow-lg text-white ${buttonClass}`}
             >
               <ButtonIcon className="w-5 h-5" />
               <span>{buttonText}</span>

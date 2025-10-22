@@ -64,7 +64,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, showRemoveButton = 
   }, [movie.title, highlight]);
   
   return (
-    <div className="relative bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-[1.03] transition-transform duration-300">
+    <div className="relative bg-gray-200 dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-[1.03] transition-transform duration-300">
       
       {/* Link para a página de Detalhes */}
       <NavLink to={`/movie/${movie.id}`} title={movie.title} className="block relative">
@@ -85,14 +85,14 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, showRemoveButton = 
       <button 
         onClick={handleActionClick}
         title={showRemoveButton ? 'Remover dos Favoritos' : 'Alternar Favorito'}
-        className={`absolute top-2 right-2 p-2 bg-gray-900/80 rounded-full transition-colors hover:bg-gray-700 ${iconColor}`}
+        className={`cursor-pointer absolute top-2 right-2 p-2 bg-gray-900/60 rounded-full transition-colors hover:bg-gray-900/80 ${iconColor}`}
       >
         <ActionIcon className="w-5 h-5" />
       </button>
 
       {/* 4. Título na base */}
       <div className="p-3">
-        <h3 className="text-white text-lg font-semibold truncate">
+        <h3 className="text-gray-900 dark:text-white text-lg font-semibold truncate">
           <NavLink to={`/movie/${movie.id}`} className="hover:text-blue-400 transition-colors">
             {titleContent}
           </NavLink>
