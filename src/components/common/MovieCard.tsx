@@ -68,13 +68,17 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, showRemoveButton = 
       
       {/* Link para a página de Detalhes */}
       <NavLink to={`/movie/${movie.id}`} title={movie.title} className="block relative">
-        <img 
-          src={posterUrl}
-          alt={movie.title} 
-          className="w-full h-auto object-cover"
-        />
+        {/* proporção de aspecto do poster (2:3) */}
+        <div className="relative w-full aspect-[2/3] bg-gray-300 dark:bg-gray-700"> 
+          <img 
+            src={posterUrl}
+            alt={movie.title} 
+            // A imagem preenche o contêiner e é cortada se necessário
+            className="w-full h-full absolute top-0 left-0" 
+          />
+        </div>
         
-        {/* 2. Nota TMDB (Requisito) */}
+        {/* 2. Nota TMDB */}
         <div className="absolute top-2 left-2 bg-yellow-500 text-gray-900 font-bold p-1 rounded-md text-xs flex items-center space-x-0.5">
             <FaStar className="w-3 h-3" />
             <span>{formattedVote}</span>
@@ -93,7 +97,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, showRemoveButton = 
       {/* 4. Título na base */}
       <div className="p-3">
         <h3 className="text-gray-900 dark:text-white text-lg font-semibold truncate">
-          <NavLink to={`/movie/${movie.id}`} className="hover:text-blue-400 transition-colors">
+          <NavLink to={`/movie/${movie.id}`} className="hover:text-blue-400 transition-colors" title={movie.title}>
             {titleContent}
           </NavLink>
         </h3>
