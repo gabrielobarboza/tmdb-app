@@ -44,6 +44,9 @@ Aplicação React para explorar filmes usando a API do TMDB. Busque filmes, veja
   - Pros: Interceptors, tipos melhores, tratamento de erros consistente
   - Contras: Bundle size maior que fetch
 
+#### Requisitos
+- Node.js >= 18.x
+
 ## Quick Start
 
 ```bash
