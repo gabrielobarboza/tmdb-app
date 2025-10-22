@@ -53,6 +53,10 @@ export const Search: React.FC = () => {
     return Array.from(new Map(movies.map(movie => [movie.id, movie])).values());
   }, [data]);
 
+  const totalResults: number = useMemo(() => {
+    return data?.pages[0].total_results || 0
+  }, [data]);
+
   if (isLoading) {
     return <div className="flex justify-center items-center h-[70vh]"><Loader size="lg" /></div>;
   }
@@ -81,12 +85,13 @@ export const Search: React.FC = () => {
     <ListLayout
       title={(
         <>
-          Resultados da Busca por: <span className="text-blue-400">"{trimmedQuery}"</span>
+          Resultados para: <span className="text-blue-400">"{trimmedQuery}"</span>
         </>
       )}
       movieList={allMovies}
       highlight={trimmedQuery}
       emptyState={emptyState}
+      quantifyTitle={totalResults > 0 ? `${totalResults} resultado${totalResults > 1 ? 's' : ''}` : ''}
     >
        <div ref={loadMoreRef} className="py-8">
         {isFetchingNextPage && <div className="flex justify-center"><Loader size="sm" /></div>}
