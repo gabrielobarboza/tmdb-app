@@ -1,62 +1,115 @@
-## 🎬 TMDB Movie Explorer Challenge (NTT DATA)
+# TMDB App
 
-### Sobre o Projeto
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
+![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
 
-Este projeto é a solução para o desafio técnico da NTT DATA, focado na construção de uma aplicação Front-End robusta para explorar filmes, buscar novos conteúdos e gerenciar uma lista personalizada de favoritos utilizando a API do The Movie Database (TMDB).
+Aplicação React para explorar filmes usando a API do TMDB. Busque filmes, veja detalhes e gerencie seus favoritos.
 
-A arquitetura foi planejada para demonstrar padrões de desenvolvimento, reusabilidade e manutenibilidade, atendendo a todos os objetivos de avaliação.
+## Features
 
-### ⚙️ Tecnologias Utilizadas (Requisitos Técnicos)
+- 🔍 Busca de filmes
+- ⭐ Lista de favoritos
+- 🌓 Tema dark/light
+- 📱 Design responsivo
+
+---
+
+## ⚙️ Tecnologias Utilizadas
+
+#### Stack Principal
 
 | Categoria | Tecnologia | Justificativa Arquitetural |
 | :--- | :--- | :--- |
-| **Framework/Builder** | React 18+ (Vite) | Desenvolvimento eficiente de UI/UX moderna. |
-| **Linguagem** | TypeScript | Garantia de código seguro e tipado. |
-| **Estado de Servidor** | **React Query (TanStack Query)** | Padrão de mercado para *caching*, *loading states*, *error handling* e otimização de requisições REST. |
-| **Estado Global (Cliente)** | **Context API & useReducer** | Solução nativa e performática para estado global (Favoritos), garantindo rastreabilidade da lógica. |
-| **Persistência** | **Custom Hook `useLocalStorage`** | Isolamento do efeito colateral de I/O, mantendo o Reducer e o Contexto puros. |
-| **Estilização** | **Tailwind CSS** | Framework *utility-first* para desenvolvimento rápido, responsivo e consistente de UI. |
-| **Roteamento** | React Router DOM | Gerenciamento de navegação e rotas com URLs limpas. |
-| **Requisições** | Axios | Cliente HTTP robusto para consumo de APIs REST. |
-| **Qualidade** | Jest / React Testing Library | Aplicação de testes unitários na lógica de negócio e serviços. |
+| **Builder** | Vite | Build tool mais rápida e moderna |
+| **Framework/Linguagem** | React + TypeScript | Type-safety proporcionando melhor Developer Experience. |
+| **Estilização** | **TailwindCSS** | Estilização rápida e consistente. |
+| **Roteamento** | React Router | Gerenciamento de navegação e rotas com URLs limpas. |
+| **Qualidade** | Jest + Testing Library | Aplicação de testes unitários na lógica de negócio e serviços. |
 
-### ✨ Características e Soluções Arquiteturais
+#### Gerenciamento de Estado
+- Context API ao invés de Redux
+  - Pros: Mais simples, suficiente para a escala do projeto
+  - Contras: Pode precisar de refatoração se a aplicação crescer muito
 
-* **Abstração:** Utilização de Custom Hooks (`useMovieDetails`, `usePopularMoviesInfinite`) para abstrair a lógica complexa do React Query.
-* **Organização e Aliases:** Estrutura de pastas modularizada com *Path Mapping* (`@/`) para garantir manutenibilidade e imports limpos.
-* **UX Avançada:** Implementação de **Infinite Scroll** e tratamento de estados de carregamento e erro (`Loading States`).
-* **Reatividade:** Lógica de Favoritos com **`useReducer`** e persistência em Local Storage, garantindo que o `MovieCard` reaja globalmente.
+#### Favoritos
+- Armazenamento: LocalStorage
+  - Pros: Persistência simples, sem backend
+  - Contras: Limitado ao navegador, sem sync entre dispositivos
 
-### 📄 Páginas Implementadas (Requisitos Obrigatórios)
+#### API Client
+- Axios como cliente HTTP + React Query (TanStack Query)
+  - Pros: Interceptors, tipos melhores, tratamento de erros consistente
+  - Contras: Bundle size maior que fetch
 
-1.  **Home (`/`):** Grid responsivo de filmes populares com Infinite Scroll.
-2.  **Detalhes do Filme (`/movie/:id`):** Layout de dois blocos, exibindo informações completas (sinopse, gêneros, data, nota) e botão reativo de Favoritar.
-3.  **Favoritos (`/favorites`):** Lista de favoritos persistida, com botões de filtro simples (por título e nota) e `Empty State`.
-4.  **Busca (`/search?q=termo`):** Ativada via Header. Utiliza Infinite Scroll e implementa destaque visual no título dos filmes que correspondem ao termo buscado.
+## Quick Start
 
-### 🚀 Como Executar Localmente
+```bash
+# Instalar dependências
+npm install
 
-1.  **Clone o Repositório:**
-    ```bash
-    git clone https://github.com/gabrielobarboza/tmdb-app.git
-    cd tmdb-app
-    ```
-2.  **Instale as Dependências:**
-    ```bash
-    npm install
-    ```
-3.  **Configure Variáveis de Ambiente:**
-    * Crie um arquivo `.env` na raiz, usando o `.env.example` como modelo.
-    * Obtenha sua chave de API do TMDB e configure a variável `VITE_TMDB_API_KEY`.
-4.  **Execute o Projeto:**
-    ```bash
-    npm run dev
-    ```
+# Configurar variáveis de ambiente
+cp .env.example .env
+# Adicione sua API key do TMDB no .env
 
-### 📦 Entregáveis (Requisito NTT DATA)
+# Rodar em desenvolvimento
+npm run dev
+```
 
-* Código-fonte completo disponível no **GitHub**.
-* `README.md` com instruções detalhadas.
-* `.env.example` para configuração de variáveis.
-* Scripts de instalação e execução (`package.json`).
-* Hospedagem em plataforma (Ex: Vercel) para demonstração.
+## Scripts
+
+- `npm run dev` - Desenvolvimento
+- `npm run build` - Build de produção
+- `npm run test` - Roda testes
+- `npm run lint` - Verifica lint
+- `npm run preview` - Preview do build
+
+## Estrutura
+
+```
+src/
+├── api/        # Cliente API
+├── components/ # Componentes React
+├── context/    # Contextos globais
+├── hooks/      # Custom hooks
+├── pages/      # Páginas/rotas
+├── types/      # Tipos TypeScript
+└── utils/      # Utilitários
+```
+
+## Páginas
+
+- `/` - Lista de filmes populares
+- `/movie/:id` - Detalhes do filme
+- `/favorites` - Lista de favoritos
+- `/search` - Busca de filmes
+
+---
+
+## Pontos Principais
+
+### Performance
+> - Lazy loading de rotas
+> - Memoização de componentes
+> - Otimização de re-renders
+
+### UX/UI
+> - Design responsivo
+> - Tema dark/light
+> - Feedback visual claro
+> - Loading states
+
+### Código
+> - Alta cobertura de testes
+> - TypeScript strict mode
+> - ESLint + Prettier
+> - Commits semânticos
+
+### DevEx
+> - Setup rápido
+> - Scripts úteis no package.json
+> - CI/CD configurado
+
+
