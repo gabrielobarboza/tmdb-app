@@ -32,8 +32,8 @@ export const Header: React.FC = () => {
 
         {/* Logo e Link para Home */}
         <NavLink to="/" className="flex items-center space-x-2 text-xl font-bold text-yellow-500" onClick={() => setIsMenuOpen(false)}>
-          <img src={LOGO_SRC} alt="MovieDB Logo" className="h-8 w-auto" />
-          <span className="hidden sm:inline">MovieDB</span>
+          <img src={LOGO_SRC} alt="The Movie DB Logo" className="h-8 w-auto" />
+          <span className="hidden sm:inline">The Movie DB</span>
         </NavLink>
 
         {/* Barra de Busca (Desktop) */}
@@ -62,7 +62,7 @@ export const Header: React.FC = () => {
 
           {/* Botão do Menu Hambúrguer (Mobile) */}
           <div className="sm:hidden">
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white text-2xl">
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-grey-800 dark:text-grey-200 text-2xl py-2">
               {isMenuOpen ? <FaTimes /> : <FaBars />}
             </button>
           </div>
@@ -72,8 +72,8 @@ export const Header: React.FC = () => {
 
       {/* Menu Móvel (Dropdown) */}
       {isMenuOpen && (
-        <div className="sm:hidden bg-gray-200 dark:bg-gray-900 shadow-lg">
-          <nav className="flex flex-col p-4 pt-0 space-y-2">
+        <div className="sm:hidden bg-gray-100 dark:bg-gray-800 shadow-lg">
+          <nav className="flex flex-col p-4 pt-2 space-y-2">
             <NavLink to="/" className={getNavLinkClass} onClick={() => setIsMenuOpen(false)}>
               Home
             </NavLink>
