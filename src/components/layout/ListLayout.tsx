@@ -1,5 +1,5 @@
 import React, { ReactNode, JSX } from 'react';
-import MovieCard from '@/components/movies/MovieCard';
+import MovieCard from '@/components/common/MovieCard';
 import { Movie } from '@/types';
 
 interface ListLayoutProps {

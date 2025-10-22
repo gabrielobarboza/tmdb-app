@@ -12,7 +12,7 @@ interface EmptyStateProps {
 export const EmptyState: React.FC<EmptyStateProps> = ({ title, message, ctaText, ctaLink }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-8 my-8 rounded-xl bg-gray-100 dark:bg-gray-800 shadow-2xl">
-      <FaHeartBroken className="w-16 h-16 text-red-500 mb-4" />
+      <FaHeartBroken data-testid="heart-broken-icon" className="w-16 h-16 text-red-500 mb-4" />
       <h2 className="text-2xl font-bold text-grey-800 dark:text-white mb-2">{title}</h2>
       <p className="text-grey-600 dark:text-gray-400 mb-6 px-10 max-w-md">{message}</p>
       
